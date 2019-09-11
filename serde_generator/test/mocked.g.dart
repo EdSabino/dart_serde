@@ -12,12 +12,10 @@ String _toJson(Mocked instance) {
     'mama': {
       'Mia': {
         'mamaMia': instance.withMetadata,
-      }
-    },
-    'mama': {
+      },
       'mia': {
         'mil': instance.meta,
-      }
+      },
     },
   };
   return json.encode(mapper);
