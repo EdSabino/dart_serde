@@ -17,7 +17,7 @@ class Mocked {
   @Prop(name: 'mamaMia', isNested: true, path: 'mama.Mia')
   String withMetadata;
 
-  @Prop(name: 'mil', isNested: true, path: 'mama.mia')
+  @Prop(name: 'mil', isNested: true, path: 'mama.mia', isNullable: true)
   String meta;
 
   @Prop(mustSerde: false)
