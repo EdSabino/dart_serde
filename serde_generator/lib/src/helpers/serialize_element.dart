@@ -34,13 +34,6 @@ class SerializeElement implements GeneratorSerde {
     }
 
     str.write(resolveNestedToString(mapper));
-    // mapper.forEach((key, value) {
-    //   if (value is String) {
-    //     str.write('    \'$key\': instance.$value,\n');
-    //   } else {
-    //     str.write('    \'$key\': {\n${resolveNestedToString(value)}\n},\n');
-    //   }
-    // });
 
     return str.toString();
   }
@@ -72,11 +65,14 @@ class SerializeElement implements GeneratorSerde {
         break;
       }
     }
-    if (obj.getField('isNested').toBoolValue()) {
-      resolveNestedField(obj, getFieldName(obj, field.name), field.name);
-      return ;
+    if (obj.getField('mustSerde').toBoolValue()) {
+      if (obj.getField('isNested').toBoolValue()) {
+        resolveNestedField(obj, getFieldName(obj, field.name), field.name);
+        return ;
+      }
+      mapper[getFieldName(obj, field.name)] = field.name;
     }
-    mapper[getFieldName(obj, field.name)] = field.name;
+    return '';
   }
 
   String getFieldName(DartObject obj, String originalName) {
@@ -99,4 +95,5 @@ class SerializeElement implements GeneratorSerde {
     }
     actual[fieldName] = name;
   }
+
 }
