@@ -39,10 +39,13 @@ class SerializeElement implements GeneratorSerde {
         break;
       }
     }
-    if (obj.getField('isNested').toBoolValue()) {
-      return resolveNestedField(obj, getFieldName(obj, field.name), field.name);
+    if (obj.getField('mustSerde').toBoolValue()) {
+      if (obj.getField('isNested').toBoolValue()) {
+        return resolveNestedField(obj, getFieldName(obj, field.name), field.name);
+      }
+      return createBaseLine(getFieldName(obj, field.name), 'instance.${field.name}');
     }
-    return createBaseLine(getFieldName(obj, field.name), 'instance.${field.name}');
+    return '';
   }
 
   String getFieldName(DartObject obj, String originalName) {

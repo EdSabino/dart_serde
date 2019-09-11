@@ -41,7 +41,10 @@ class DeserializeElement implements GeneratorSerde {
         break;
       }
     }
-    return createBaseLine(variable, field.name, getFieldNamePath(obj, field.name), field.type.toString(), obj);;
+    if (obj.getField('mustSerde').toBoolValue()) {
+      return createBaseLine(variable, field.name, getFieldNamePath(obj, field.name), field.type.toString(), obj);;
+    }
+    return '';
   }
 
   String getFieldNamePath(DartObject obj, String name) {

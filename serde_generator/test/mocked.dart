@@ -19,4 +19,7 @@ class Mocked {
 
   @Prop(name: 'mil', isNested: true, path: 'mama.mia', isNullable: true)
   String meta;
+
+  @Prop(mustSerde: false)
+  String noSerde;
 }
