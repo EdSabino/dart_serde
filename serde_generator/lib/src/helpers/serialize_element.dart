@@ -29,7 +29,7 @@ class SerializeElement implements GeneratorSerde {
   String resolveField(FieldElement field) {
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
-      return '    \'${field.name}\': instance.${field.name},\n';
+      return createBaseLine(field.name, 'instance.${field.name}');
     }
     DartObject obj;
     ElementAnnotation metadata;
@@ -42,7 +42,7 @@ class SerializeElement implements GeneratorSerde {
     if (obj.getField('isNested').toBoolValue()) {
       return resolveNestedField(obj, getFieldName(obj, field.name), field.name);
     }
-    return '    \'${getFieldName(obj, field.name)}\': instance.${field.name},\n';
+    return createBaseLine(getFieldName(obj, field.name), 'instance.${field.name}');
   }
 
   String getFieldName(DartObject obj, String originalName) {
@@ -61,8 +61,12 @@ class SerializeElement implements GeneratorSerde {
       generated.write('    \'$actual\': {\n');
     }
     String braces = '}' * paths.length;
-    generated.write('    \'$fieldName\': instance.$name,\n');
+    generated.write(createBaseLine(fieldName, 'instance.$name'));
     generated.write('    $braces\n,');
     return generated.toString();
+  }
+
+  String createBaseLine(String name, String value) {
+    return '    \'$name\': $value,\n';
   }
 }

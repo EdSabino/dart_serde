@@ -31,7 +31,7 @@ class DeserializeElement implements GeneratorSerde {
   String resolveField(FieldElement field, String variable) {
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
-      return '    $variable.${field.name} = data[\'${field.name}\'] as ${field.type};\n';
+      return createBaseLine(variable, field.name, '[\'${field.name}\']', field.type.toString());
     }
     DartObject obj;
     ElementAnnotation metadata;
@@ -41,7 +41,7 @@ class DeserializeElement implements GeneratorSerde {
         break;
       }
     }
-    return '    $variable.${field.name} = data${getFieldNamePath(obj, field.name)} as ${field.type};\n';
+    return createBaseLine(variable, field.name, getFieldNamePath(obj, field.name), field.type.toString(), obj);;
   }
 
   String getFieldNamePath(DartObject obj, String name) {
@@ -69,5 +69,14 @@ class DeserializeElement implements GeneratorSerde {
     }
     generated.write('[\'$fieldName\']');
     return generated.toString();
+  }
+
+  String createBaseLine(String variable, String name, String path, String type, [DartObject obj = null]) {
+    if (obj !=  null) {
+      if (obj.getField('isNullable').toBoolValue()) {
+        return '    $variable.$name = (data$path != null) ? (data$path as $type) : null;\n';
+      }
+    }
+    return '    $variable.$name = data$path as $type;\n';
   }
 }
