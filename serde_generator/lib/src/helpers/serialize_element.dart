@@ -72,7 +72,6 @@ class SerializeElement implements GeneratorSerde {
       }
       mapper[getFieldName(obj, field.name)] = field.name;
     }
-    return '';
   }
 
   String getFieldName(DartObject obj, String originalName) {

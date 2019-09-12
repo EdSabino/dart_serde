@@ -1,0 +1,8 @@
+name: dart_serde
+description: A new Flutter package.
+version: 0.0.2
+author: Eduardo Sabino da Silva Aikin <eduardoaikin@gmail.com>
+homepage: https://github.com/EdSabino/dart_serde
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
