@@ -333,9 +333,9 @@ packages:
   serde:
     dependency: "direct main"
     description:
-      path: "../serde"
-      relative: true
-    source: path
+      name: serde
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   shelf:
     dependency: transitive

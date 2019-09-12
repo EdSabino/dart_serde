@@ -1,5 +1,5 @@
-# Serde Generator
-Is a builder, to generate code to serialize and deserialize
+# Serde Annotation
+Have the annotations, and therefore the interaface to access and use the dart_serde
 
 ## Getting Started
 
@@ -7,9 +7,8 @@ Is a builder, to generate code to serialize and deserialize
 
 Add the following to your pubspec
 ```
-dev_dependencies:
-    build_runner: ^1.0.0
-    serde_generator: ^1.0.0
+dependencies:
+    serde: ^1.0.0
 ```
 
 run ```pub get```

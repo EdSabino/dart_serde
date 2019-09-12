@@ -1,8 +1,8 @@
 name: serde
-description: A new Flutter package.
+description: This packages contain the annotations for the package dart_serde.
 version: 1.0.0
-author:
-homepage:
+author: Eduardo Sabino da Silva Aikin <eduardoaikin@gmail.com>
+homepage: https://github.com/EdSabino/dart_serde
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,8 +10,6 @@ environment:
 dependencies:
   build: '>=0.12.0 <2.0.0'
   source_gen: ^0.9.0
-  serde_generator:
-    path: ../serde_generator/
 
 dev_dependencies:
   test: ^1.0.0
