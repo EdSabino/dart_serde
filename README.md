@@ -17,3 +17,33 @@ dev_dependencies:
   serde_generator: ^1.0.0
 
 ```
+
+Run ```pub get```
+
+## Getting started
+
+Given the class
+
+```
+class Public {
+    final bool mustShow;
+    final int number;
+}
+```
+
+To map a json into it, and from it you must do:
+```
+@Serde()
+class Public {...}
+```
+And thats it.
+
+If you have special conditions for some keys, that is treatable. Lets assume, for example, that the field musShow, comes int he json with the name show, and nested in the structure, wrapped by the mapper
+```
+@Serde()
+class Public {
+    @Prop(name: 'show', isNested: true, path: 'mapper')
+    final bool mustShow;
+    final int number;
+}
+```
