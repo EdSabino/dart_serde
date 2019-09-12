@@ -8,7 +8,7 @@ part of 'mocked.dart';
 
 String _toJson(Mocked instance) {
   Map<String, dynamic> mapper = {
-    'something': instance.something,
+    'something': instance.something.toString(),
     'mama': {
       'Mia': {
         'mamaMia': instance.withMetadata,
@@ -17,6 +17,9 @@ String _toJson(Mocked instance) {
         'mil': instance.meta,
       },
     },
+    'mocked2': instance.mocked2.map((dynamic data) {
+      return data.toJson();
+    }).toList(),
   };
   return json.encode(mapper);
 }
@@ -28,5 +31,8 @@ Mocked _fromJson(Map<String, dynamic> data) {
   mocked.meta = (data['mama']['mia']['mil'] != null)
       ? (data['mama']['mia']['mil'] as String)
       : null;
+  mocked.mocked2 = data['mocked2'].map<Mockedo>((dynamic data) {
+    return Mockedo.fromJson(data as Map<String, dynamic>);
+  }).toList();
   return mocked;
 }

@@ -1,6 +1,6 @@
 name: dart_serde
 description: Serialize and Deserialize Json into and from classes, aim to give a nice and friendly interface, inspired by the Serde package from rust
-version: 1.0.2
+version: 1.0.3
 author: Eduardo Sabino da Silva Aikin <eduardoaikin@gmail.com>
 homepage: https://github.com/EdSabino/dart_serde
 

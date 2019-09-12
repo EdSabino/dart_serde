@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:serde_generator/src/helpers/generator_serde.dart';
 
 class SerializeElement implements GeneratorSerde {
@@ -54,13 +55,13 @@ class SerializeElement implements GeneratorSerde {
   void resolveField(FieldElement field) {
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
-      mapper[field.name.toString()] = field.name;
+      mapper[field.name.toString()] = resolveTypeForField(field);
       return ;
     }
     DartObject obj;
     ElementAnnotation metadata;
     for (metadata in metadatas) {
-       obj = metadata.constantValue;
+      obj = metadata.computeConstantValue();
       if (obj.type.toString() == 'Prop') {
         break;
       }
@@ -93,6 +94,29 @@ class SerializeElement implements GeneratorSerde {
       actual = actual[actualString];
     }
     actual[fieldName] = name;
+  }
+
+  String resolveTypeForField(FieldElement field) {
+    String concat = resolveType(field.type);
+    return '${field.name}${concat}';
+  }
+
+  String resolveType(DartType type) {
+    if (
+      type.isDartCoreBool ||
+      type.isDartCoreInt ||
+      type.isDartCoreNum ||
+      type.isDartCoreString ||
+      type.isDartCoreDouble
+    ) {
+      return '.toString()';
+    }
+    if (type.isDartCoreList) {
+      if (type is ParameterizedType) {
+        return '.map((dynamic data) { return data${resolveType(type.typeArguments[0])}; }).toList()';
+      }
+    }
+    return '.toJson()';
   }
 
 }
