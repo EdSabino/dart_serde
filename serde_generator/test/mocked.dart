@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:serde/serde.dart';
 
+import 'mockedo.dart';
+
 part 'mocked.g.dart';
 
 @Serde()
@@ -22,4 +24,7 @@ class Mocked {
 
   @Prop(mustSerde: false)
   String noSerde;
+
+  List<Mockedo> mocked2;
 }
+
