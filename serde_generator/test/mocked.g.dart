@@ -17,9 +17,7 @@ String _toJson(Mocked instance) {
         'mil': instance.meta,
       },
     },
-    'mocked2': instance.mocked2.map((dynamic data) {
-      return data.toJson();
-    }).toList(),
+    'mocked2': instance.mocked2.toJson(),
   };
   return json.encode(mapper);
 }
@@ -31,8 +29,6 @@ Mocked _fromJson(Map<String, dynamic> data) {
   mocked.meta = (data['mama']['mia']['mil'] != null)
       ? (data['mama']['mia']['mil'] as String)
       : null;
-  mocked.mocked2 = data['mocked2'].map<Mockedo>((dynamic data) {
-    return Mockedo.fromJson(data as Map<String, dynamic>);
-  }).toList();
+  mocked.mocked2 = Mockedo.fromJson(data['mocked2'] as Map<String, dynamic>);
   return mocked;
 }

@@ -125,7 +125,7 @@ class DeserializeElement implements GeneratorSerde {
     if (element is ClassElement) {
       DartObject obj = getAnnotation(element.metadata, 'Serde');
       if (obj != null) {
-        return '${type.toString()}.fromJson(data$path as Map<String, dynamic>)';
+        return '${type.toString()}.fromJson(data$path as ${element.getNamedConstructor('fromJson').parameters[0].type})';
       }
       print('''
       -----------------------------------------------------------------------

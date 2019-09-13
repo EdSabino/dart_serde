@@ -5,3 +5,11 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.1
 
 - Add treatment to Nom primitive types
+
+## 1.0.2
+
+- Treat bug, when nested map inside list duplicate the type
+
+## 1.0.3
+
+- Generate the generic function fromJson with dynamic type

@@ -25,6 +25,6 @@ class Mocked {
   @Prop(mustSerde: false)
   String noSerde;
 
-  List<Mockedo> mocked2;
+  Mockedo mocked2;
 }
 
