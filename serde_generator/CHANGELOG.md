@@ -25,3 +25,7 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.6
 
 - Deleting the dart_serde, and turning serde into the main repo, and adding examples
+
+## 1.0.7
+
+- Correcting error of types, and to be right by the linter parameters
