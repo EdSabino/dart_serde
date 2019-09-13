@@ -26,5 +26,7 @@ class Mocked {
   String noSerde;
 
   Mockedo mocked2;
+
+  String get value => meta;
 }
 

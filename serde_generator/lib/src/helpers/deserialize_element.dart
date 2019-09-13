@@ -47,6 +47,9 @@ class DeserializeElement implements GeneratorSerde {
   }
 
   String resolveField(FieldElement field, String variable) {
+    if (field.setter == null) {
+      return '';
+    }
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
       return basicEndLine(field, variable);

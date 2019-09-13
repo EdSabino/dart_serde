@@ -53,6 +53,9 @@ class SerializeElement implements GeneratorSerde {
   }
 
   void resolveField(FieldElement field) {
+    if (field.setter == null) {
+      return ;
+    }
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
       mapper[field.name.toString()] = resolveTypeForField(field);

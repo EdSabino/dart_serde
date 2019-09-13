@@ -30,5 +30,6 @@ Mocked _fromJson(Map<String, dynamic> data) {
       ? (data['mama']['mia']['mil'] as String)
       : null;
   mocked.mocked2 = Mockedo.fromJson(data['mocked2'] as Map<String, dynamic>);
+  mocked.value = data['value'] as String;
   return mocked;
 }
