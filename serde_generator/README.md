@@ -15,4 +15,4 @@ dev_dependencies:
 run ```pub get```
 
 ### Using
-Well, the ideia is you dont use it alone :P, but with the serde annotation package
+Well, the ideia is you dont use it alone :P, this is part of the serde package, please refear to https://pub.dev/packages/serde

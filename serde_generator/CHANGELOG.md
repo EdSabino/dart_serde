@@ -21,3 +21,7 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.5
 
 - Add possibility of deserialize function and serialize function, also correct some minor bugs
+
+## 1.0.6
+
+- Deleting the dart_serde, and turning serde into the main repo, and adding examples

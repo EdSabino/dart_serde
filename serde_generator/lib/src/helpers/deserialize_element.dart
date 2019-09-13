@@ -94,7 +94,7 @@ class DeserializeElement implements GeneratorSerde {
     return generated.toString();
   }
 
-  String createBaseLine(String variable, String name, String expression, [DartObject obj = null, String path]) {
+  String createBaseLine(String variable, String name, String expression, [DartObject obj, String path]) {
     if (obj !=  null) {
       if (obj.getField('isNullable').toBoolValue()) {
         return '    $variable.$name = (data$path != null) ? ($expression) : null;\n';

@@ -13,3 +13,7 @@ do the minimun necessary to make it work
 ## 1.0.3
 
 - Example file and documentation
+
+## 1.0.4
+
+- Turning this into the main repository, and deleting the dart_serde

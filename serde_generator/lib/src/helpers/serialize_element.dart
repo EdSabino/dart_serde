@@ -102,7 +102,7 @@ class SerializeElement implements GeneratorSerde {
     actual[fieldName] = name;
   }
 
-  String resolveTypeForField(FieldElement field, [DartObject obj = null]) {
+  String resolveTypeForField(FieldElement field, [DartObject obj]) {
     if (obj != null && !obj.getField('serializeFunction').isNull) {
       return withFunction(field, obj.getField('serializeFunction').toFunctionValue());
     }
