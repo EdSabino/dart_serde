@@ -27,8 +27,17 @@ class Mocked {
 
   Mockedo mocked2;
 
+  @Prop(serializeFunction: serializeFunction, deserializeFunction: deserializeFunction)
   Duration lala;
 
   String get value => meta;
+
+  static String serializeFunction(dynamic data) {
+    return data.inHours.toString();
+  }
+
+  static dynamic deserializeFunction(String data) {
+    return Duration(seconds: data as int);
+  }
 }
 

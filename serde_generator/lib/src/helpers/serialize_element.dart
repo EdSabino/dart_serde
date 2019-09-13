@@ -10,6 +10,8 @@ class SerializeElement implements GeneratorSerde {
 
   Map<dynamic, dynamic> mapper = {};
 
+  String className;
+
   GeneratorSerde setFields(List<FieldElement> list) {
     fields = list;
     return this;
@@ -17,6 +19,7 @@ class SerializeElement implements GeneratorSerde {
 
   String generate(String displayName) {
     StringBuffer serializeScript = StringBuffer();
+    className = displayName;
     serializeScript.write('String _toJson($displayName instance) {\n');
     serializeScript.write('  Map<String, dynamic> mapper = {\n');
     serializeScript.write(resolveFields());
@@ -44,7 +47,7 @@ class SerializeElement implements GeneratorSerde {
 
     localMap.forEach((key, value) {
       if (value is String) {
-        str.write('    \'$key\': instance.$value,\n');
+        str.write('    \'$key\': $value,\n');
       } else {
         str.write('    \'$key\': {\n${resolveNestedToString(value)}\n},\n');
       }
@@ -71,10 +74,10 @@ class SerializeElement implements GeneratorSerde {
     }
     if (obj.getField('mustSerde').toBoolValue()) {
       if (obj.getField('isNested').toBoolValue()) {
-        resolveNestedField(obj, getFieldName(obj, field.name), field.name);
+        resolveNestedField(obj, getFieldName(obj, field.name), resolveTypeForField(field, obj));
         return ;
       }
-      mapper[getFieldName(obj, field.name)] = field.name;
+      mapper[getFieldName(obj, field.name)] = resolveTypeForField(field, obj);
     }
   }
 
@@ -99,9 +102,12 @@ class SerializeElement implements GeneratorSerde {
     actual[fieldName] = name;
   }
 
-  String resolveTypeForField(FieldElement field) {
+  String resolveTypeForField(FieldElement field, [DartObject obj = null]) {
+    if (obj != null && !obj.getField('serializeFunction').isNull) {
+      return withFunction(field, obj.getField('serializeFunction').toFunctionValue());
+    }
     String concat = resolveType(field.type);
-    return '${field.name}${concat}';
+    return 'instance.${field.name}${concat}';
   }
 
   String resolveType(DartType type) {
@@ -117,10 +123,24 @@ class SerializeElement implements GeneratorSerde {
     }
     if (type.isDartCoreList) {
       if (type is ParameterizedType) {
-        return '.map<String>((dynamic data) { return data${resolveType(type.typeArguments[0])}; }).toList()';
+        return '.cast<${type.typeParameters[0]}>().toList()';
       }
     }
     return '.toJson()';
+  }
+
+  String withFunction(FieldElement field, ExecutableElement function) {
+    if (function.isStatic) {
+      return '$className.${function.name}(instance.${field.name})';
+    }
+    print('''
+    -----------------------------------------------------------------------
+                              Serde Error                               
+    ---------------------------------------------------------------------
+    The function must be an staticType                                                      
+    ---------------------------------------------------------------------
+    ''');
+    return '';
   }
 
 }

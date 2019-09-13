@@ -8,6 +8,7 @@ class DeserializeElement implements GeneratorSerde {
 
   List<FieldElement> fields;
 
+  String className;
 
   GeneratorSerde setFields(List<FieldElement> list) {
     fields = list;
@@ -18,7 +19,7 @@ class DeserializeElement implements GeneratorSerde {
     StringBuffer serializeScript = StringBuffer();
     final String variable = displayName.toLowerCase();
     FieldElement field;
-
+    className = displayName;
     serializeScript.write('$displayName _fromJson(Map<String, dynamic> data) {\n');
     serializeScript.write('  final $displayName $variable = $displayName();\n');
     for (field in fields) {
@@ -42,7 +43,7 @@ class DeserializeElement implements GeneratorSerde {
   }
 
   String basicEndLine(FieldElement field, String variable) {
-    String expression = resolveType('[\'${field.name}\']', field.type);
+    String expression = resolveType('[\'${field.name}\']', field);
     return createBaseLine(variable, field.name, expression);
   }
 
@@ -60,7 +61,7 @@ class DeserializeElement implements GeneratorSerde {
     }
     if (obj.getField('mustSerde').toBoolValue()) {
       String path = getFieldNamePath(obj, field.name);
-      String expression = resolveType(path, field.type);
+      String expression = resolveType(path, field);
       return createBaseLine(variable, field.name, expression, obj, path);
     }
     return '';
@@ -102,7 +103,12 @@ class DeserializeElement implements GeneratorSerde {
     return '    $variable.$name = $expression;\n';
   }
 
-  String resolveType(String path, DartType type) {
+  String resolveType(String path, FieldElement field) {
+    DartObject fieldAnnotation = getAnnotation(field.metadata, 'Prop');
+    if (fieldAnnotation != null && !fieldAnnotation.getField('deserializeFunction').isNull) {
+      return withFunction(fieldAnnotation.getField('deserializeFunction').toFunctionValue(), path);
+    }
+    DartType type = field.type;
     if (
       type.isDartCoreBool ||
       type.isDartCoreInt ||
@@ -131,7 +137,7 @@ class DeserializeElement implements GeneratorSerde {
         return '${type.toString()}.fromJson(data$path as ${element.getNamedConstructor('fromJson').parameters[0].type})';
       }
       print('''
-      -----------------------------------------------------------------------
+      ---------------------------------------------------------------------
                                 Serde Error                               
       ---------------------------------------------------------------------
       Error on trying to parse the field with type $type, please annotate 
@@ -141,5 +147,9 @@ class DeserializeElement implements GeneratorSerde {
       ''');
     }
     return 'data$path as ${type.toString()}';
+  }
+
+  String withFunction(ExecutableElement function, String path) {
+    return '$className.${function.name}(data$path)';
   }
 }
