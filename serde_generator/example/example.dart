@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:serde/src/serde.dart';
+part 'example.g.dart';
 
 @Serde()
 class ExampleClass {

@@ -1,20 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'mockedo.dart';
+part of 'example.dart';
 
 // **************************************************************************
 // SerdeGenerator
 // **************************************************************************
 
-String _toJson(Mockedo instance) {
+String _toJson(ExampleClass instance) {
   Map<String, dynamic> mapper = <String, dynamic>{
-    'something': instance.something.toString(),
+    'attr1': instance.attr1.toString(),
   };
   return json.encode(mapper);
 }
 
-Mockedo _fromJson(Map<String, dynamic> data) {
-  final Mockedo mockedo = Mockedo();
-  mockedo.something = data['something'] as String;
-  return mockedo;
+ExampleClass _fromJson(Map<String, dynamic> data) {
+  final ExampleClass exampleclass = ExampleClass();
+  exampleclass.attr1 = data['attr1'] as bool;
+  return exampleclass;
 }

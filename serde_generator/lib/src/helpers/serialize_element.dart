@@ -21,7 +21,7 @@ class SerializeElement implements GeneratorSerde {
     StringBuffer serializeScript = StringBuffer();
     className = displayName;
     serializeScript.write('String _toJson($displayName instance) {\n');
-    serializeScript.write('  Map<String, dynamic> mapper = {\n');
+    serializeScript.write('  Map<String, dynamic> mapper = <String, dynamic>{\n');
     serializeScript.write(resolveFields());
     serializeScript.write('  };\n');    
     serializeScript.write('  return json.encode(mapper);\n');
@@ -123,7 +123,7 @@ class SerializeElement implements GeneratorSerde {
     }
     if (type.isDartCoreList) {
       if (type is ParameterizedType) {
-        return '.cast<${type.typeParameters[0]}>().toList()';
+        return '.cast<${type.typeArguments[0]}>().toList()';
       }
     }
     return '.toJson()';

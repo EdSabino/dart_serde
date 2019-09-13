@@ -25,7 +25,7 @@ class Mocked {
   @Prop(mustSerde: false)
   String noSerde;
 
-  Mockedo mocked2;
+  List<Mockedo> mocked2;
 
   @Prop(serializeFunction: serializeFunction, deserializeFunction: deserializeFunction)
   Duration lala;
