@@ -11,14 +11,14 @@ String _toJson(Mocked instance) {
     'something': instance.something.toString(),
     'mama': {
       'Mia': {
-        'mamaMia': instance.withMetadata,
+        'mamaMia': instance.withMetadata.toString(),
       },
       'mia': {
-        'mil': instance.meta,
+        'mil': instance.meta.toString(),
       },
     },
     'mocked2': instance.mocked2.toJson(),
-    'lala': instance.lala.toString(),
+    'lala': Mocked.serializeFunction(instance.lala),
   };
   return json.encode(mapper);
 }
@@ -31,6 +31,6 @@ Mocked _fromJson(Map<String, dynamic> data) {
       ? (data['mama']['mia']['mil'] as String)
       : null;
   mocked.mocked2 = Mockedo.fromJson(data['mocked2'] as Map<String, dynamic>);
-  mocked.lala = data['lala'] as Duration;
+  mocked.lala = Mocked.deserializeFunction(data['lala']);
   return mocked;
 }

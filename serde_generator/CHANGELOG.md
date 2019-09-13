@@ -17,3 +17,7 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.4
 
 - Correcting bug, of GIT
+
+## 1.0.5
+
+- Add possibility of deserialize function and serialize function, also correct some minor bugs
