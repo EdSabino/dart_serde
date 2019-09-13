@@ -12,4 +12,8 @@ The minimum necessary to the package work and support the annotations
 
 ## 1.0.3
 
-- Generate the generic function fromJson with dynamic type
+- Generate the generic function fromJson with dynamic type\
+
+## 1.0.4
+
+- Correcting bug, of GIT
