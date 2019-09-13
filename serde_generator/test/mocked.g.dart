@@ -18,6 +18,7 @@ String _toJson(Mocked instance) {
       },
     },
     'mocked2': instance.mocked2.toJson(),
+    'lala': instance.lala.toString(),
   };
   return json.encode(mapper);
 }
@@ -30,6 +31,6 @@ Mocked _fromJson(Map<String, dynamic> data) {
       ? (data['mama']['mia']['mil'] as String)
       : null;
   mocked.mocked2 = Mockedo.fromJson(data['mocked2'] as Map<String, dynamic>);
-  mocked.value = data['value'] as String;
+  mocked.lala = data['lala'] as Duration;
   return mocked;
 }

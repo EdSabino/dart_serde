@@ -27,6 +27,8 @@ class Mocked {
 
   Mockedo mocked2;
 
+  Duration lala;
+
   String get value => meta;
 }
 

@@ -110,13 +110,14 @@ class SerializeElement implements GeneratorSerde {
       type.isDartCoreInt ||
       type.isDartCoreNum ||
       type.isDartCoreString ||
-      type.isDartCoreDouble
+      type.isDartCoreDouble ||
+      type.displayName == "Duration"
     ) {
       return '.toString()';
     }
     if (type.isDartCoreList) {
       if (type is ParameterizedType) {
-        return '.map((dynamic data) { return data${resolveType(type.typeArguments[0])}; }).toList()';
+        return '.map<String>((dynamic data) { return data${resolveType(type.typeArguments[0])}; }).toList()';
       }
     }
     return '.toJson()';
