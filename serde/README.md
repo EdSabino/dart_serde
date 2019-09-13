@@ -14,4 +14,4 @@ dependencies:
 run ```pub get```
 
 ### Using
-Well, the ideia is you dont use it alone :P, but with the serde annotation package
+Well, the ideia is you dont use it alone :P, he is part of the dart_serde package, there you will found the instructions and everything https://pub.dev/packages/dart_serde

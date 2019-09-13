@@ -1,6 +1,6 @@
 name: serde
 description: This packages contain the annotations for the package dart_serde.
-version: 1.0.2
+version: 1.0.3
 author: Eduardo Sabino da Silva Aikin <eduardoaikin@gmail.com>
 homepage: https://github.com/EdSabino/dart_serde
 
