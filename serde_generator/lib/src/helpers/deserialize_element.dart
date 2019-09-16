@@ -122,7 +122,17 @@ class DeserializeElement implements GeneratorSerde {
     }
     if (type.isDartCoreList) {
       if (type is ParameterizedType) {
-        return 'data$path.cast<${type.typeArguments[0]}>().toList()';
+        DartType subType = type.typeArguments[0];
+        if (
+          subType.isDartCoreBool ||
+          subType.isDartCoreInt ||
+          subType.isDartCoreNum ||
+          subType.isDartCoreString ||
+          subType.isDartCoreMap
+        ) {
+          return 'data$path.cast<${type.typeArguments[0]}>().toList()';
+        }
+        return 'data$path.map<${type.typeArguments[0]}>((dynamic data) => ${type.typeArguments[0]}.fromJson(data)).toList()';
       }
     }
     if (type.isDartCoreMap) {

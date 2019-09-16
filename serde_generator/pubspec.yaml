@@ -1,6 +1,6 @@
 name: serde_generator
 description: The generator for the dart_serde package, is responsible for generate the code that will serialize or deserialize an class
-version: 1.0.7
+version: 1.0.8
 author: Eduardo Sabino da SIlva Aikin <eduardoaikin@gmail.com>
 homepage: https://github.com/EdSabino/dart_serde
 

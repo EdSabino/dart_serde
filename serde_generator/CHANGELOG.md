@@ -29,3 +29,7 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.7
 
 - Correcting error of types, and to be right by the linter parameters
+
+## 1.0.8
+
+- Change treatment for list
