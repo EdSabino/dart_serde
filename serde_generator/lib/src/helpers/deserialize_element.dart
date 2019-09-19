@@ -110,7 +110,7 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
         return '    $variable.$name = (data$path != null) ? ($expression) : null;\n';
       }
     }
-    return '    $variable.$name = (data[\'$name\'] != null) ? ($expression) : null;\n';
+    return '    $variable.$name = (data[\'${getFieldNameCased(name, caseType)}\'] != null) ? ($expression) : null;\n';
   }
 
   String createNullableOnPath() {
