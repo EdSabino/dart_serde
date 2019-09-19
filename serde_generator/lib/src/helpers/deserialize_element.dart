@@ -104,11 +104,13 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
   String createBaseLine(String variable, String name, String expression, [DartObject obj, String path]) {
     if (obj !=  null) {
       if (obj.getField('isNullable').toBoolValue()) {
-        createNullableOnPath();
-        return '    $variable.$name = (${createNullableOnPath()} data$path != null) ? ($expression) : null;\n';
+        if (obj.getField('isNested').toBoolValue()) {
+          return '    $variable.$name = (${createNullableOnPath()} data$path != null) ? ($expression) : null;\n';
+        }
+        return '    $variable.$name = (data$path != null) ? ($expression) : null;\n';
       }
     }
-    return '    $variable.$name = $expression;\n';
+    return '    $variable.$name = (data[\'$name\'] != null) ? ($expression) : null;\n';
   }
 
   String createNullableOnPath() {

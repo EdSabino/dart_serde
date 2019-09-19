@@ -38,3 +38,11 @@ The minimum necessary to the package work and support the annotations
 
 - Implementation of cases transformation
 - Fix of a bug related to the use of nullable aside with nested;
+
+### 1.0.9+1
+
+- Fix for a bug on deserialzie, he tried to build the path to check deserializable path, when null
+
+### 1.0.9+2
+
+- Fix bug when nullable and with no @Prop
