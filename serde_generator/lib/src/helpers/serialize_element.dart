@@ -2,15 +2,18 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:serde_generator/src/helpers/generator_serde.dart';
+import 'package:serde_generator/src/helpers/mixins/string_modifiers.dart';
 
-class SerializeElement implements GeneratorSerde {
-  SerializeElement();
+class SerializeElement with StringModifier implements GeneratorSerde {
+  SerializeElement(this.caseType);
 
   List<FieldElement> fields;
 
   Map<dynamic, dynamic> mapper = {};
 
   String className;
+
+  final DartObject caseType;
 
   GeneratorSerde setFields(List<FieldElement> list) {
     fields = list;
@@ -61,7 +64,7 @@ class SerializeElement implements GeneratorSerde {
     }
     List<ElementAnnotation> metadatas = field.metadata;
     if (metadatas == null || metadatas.isEmpty) {
-      mapper[field.name.toString()] = resolveTypeForField(field);
+      mapper[getFieldNameCased(field.name.toString(), caseType)] = resolveTypeForField(field);
       return ;
     }
     DartObject obj;
@@ -86,7 +89,7 @@ class SerializeElement implements GeneratorSerde {
     if (fieldName.isNull) {
       return originalName;
     }
-    return fieldName.toStringValue();
+    return getFieldNameCased(fieldName.toStringValue(), caseType);
   }
 
   void resolveNestedField(DartObject obj, String fieldName, String name) {

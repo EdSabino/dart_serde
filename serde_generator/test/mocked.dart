@@ -7,14 +7,14 @@ import 'mockedo.dart';
 
 part 'mocked.g.dart';
 
-@Serde()
+@Serde(caseType: CaseType.snake)
 class Mocked {
   Mocked();
 
   factory Mocked.fromJson(Map<String, dynamic> data) => _fromJson(data);
   String toJson() => _toJson(this);
 
-  bool something = true;
+  bool someThing = true;
 
   @Prop(name: 'mamaMia', isNested: true, path: 'mama.Mia')
   String withMetadata;

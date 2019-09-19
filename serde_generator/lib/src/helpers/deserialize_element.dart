@@ -2,13 +2,18 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:serde_generator/src/helpers/generator_serde.dart';
+import 'package:serde_generator/src/helpers/mixins/string_modifiers.dart';
 
-class DeserializeElement implements GeneratorSerde {
-  DeserializeElement();
+class DeserializeElement with StringModifier implements GeneratorSerde {
+  DeserializeElement(this.caseType);
 
   List<FieldElement> fields;
 
   String className;
+
+  List<String> pathList;
+
+  final DartObject caseType;
 
   GeneratorSerde setFields(List<FieldElement> list) {
     fields = list;
@@ -43,7 +48,7 @@ class DeserializeElement implements GeneratorSerde {
   }
 
   String basicEndLine(FieldElement field, String variable) {
-    String expression = resolveType('[\'${field.name}\']', field);
+    String expression = resolveType('[\'${getFieldNameCased(field.name, caseType)}\']', field);
     return createBaseLine(variable, field.name, expression);
   }
 
@@ -80,14 +85,16 @@ class DeserializeElement implements GeneratorSerde {
     if (fieldName.isNull) {
       return originalName;
     }
-    return fieldName.toStringValue();
+    return getFieldNameCased(fieldName.toStringValue(), caseType);
   }
 
   String resolveNestedField(DartObject obj, String fieldName) {
     String actual;
     List<String> paths = obj.getField('path').toStringValue().split('.');
     StringBuffer generated = StringBuffer();
+    pathList = <String>[];
     for (actual in paths) {
+      pathList.add(actual);
       generated.write('[\'$actual\']');
     }
     generated.write('[\'$fieldName\']');
@@ -97,10 +104,22 @@ class DeserializeElement implements GeneratorSerde {
   String createBaseLine(String variable, String name, String expression, [DartObject obj, String path]) {
     if (obj !=  null) {
       if (obj.getField('isNullable').toBoolValue()) {
-        return '    $variable.$name = (data$path != null) ? ($expression) : null;\n';
+        createNullableOnPath();
+        return '    $variable.$name = (${createNullableOnPath()} data$path != null) ? ($expression) : null;\n';
       }
     }
     return '    $variable.$name = $expression;\n';
+  }
+
+  String createNullableOnPath() {
+    String element;
+    String previous = 'data';
+    final StringBuffer generated = StringBuffer();
+    for (element in pathList) {
+      previous += '[\'$element\']';
+      generated.write(previous + ' != null &&');
+    }
+    return generated.toString();
   }
 
   String resolveType(String path, FieldElement field) {

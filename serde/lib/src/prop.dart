@@ -10,7 +10,7 @@ typedef DeserializeFunction = dynamic Function(dynamic data);
 
 /// The @Prop annotation itself, it must be placed above soem attribute inside a class annotated with @Serde, if an element is annotated you can change some configurations about it.
 class Prop {
-  const Prop({this.name, this.isNested = false, this.path, this.mustSerde = true, this.isNullable = false, this.serializeFunction, this.deserializeFunction});
+  const Prop({this.name, this.isNested = false, this.path, this.mustSerde = true, this.isNullable = true, this.serializeFunction, this.deserializeFunction});
 
   /// The name property when used will change the value from where they will be serialize, and deserialize, example:
   ///   your json is {"value": "real_value"}, and the attribute that will receive the "value", is "something", you will annotate the "some" attribute, and put the name as "value"

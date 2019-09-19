@@ -33,3 +33,8 @@ The minimum necessary to the package work and support the annotations
 ## 1.0.8
 
 - Change treatment for list
+
+## 1.0.9
+
+- Implementation of cases transformation
+- Fix of a bug related to the use of nullable aside with nested;

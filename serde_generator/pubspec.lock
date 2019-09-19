@@ -329,7 +329,7 @@ packages:
       name: serde
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.6"
   shelf:
     dependency: transitive
     description:

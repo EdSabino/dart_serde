@@ -21,3 +21,8 @@ do the minimun necessary to make it work
 ## 1.0.5
 
 - Documenting the public API
+
+## 1.0.6
+
+- Add option on @Serde of case
+- Change the default of nullable to true
