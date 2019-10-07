@@ -54,4 +54,9 @@ The minimum necessary to the package work and support the annotations
 
 ## 1.1.0
 
- - Serde DateTime
+ - Dont working deserialize(?)
+
+## 1.1.0+1
+
+- Serde DateTime
+
