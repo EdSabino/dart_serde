@@ -18,6 +18,7 @@ String _toJson(Mocked instance) {
       },
     },
     'mocked2': instance.mocked2.cast<Mockedo>().toList(),
+    'somet': instance.somet.toUtc().toIso8601String(),
     'lala': Mocked.serializeFunction(instance.lala),
   };
   return json.encode(mapper);
@@ -25,7 +26,8 @@ String _toJson(Mocked instance) {
 
 Mocked _fromJson(Map<String, dynamic> data) {
   final Mocked mocked = Mocked();
-  mocked.someThing = data['some_thing'] as bool;
+  mocked.someThing =
+      (data['some_thing'] != null) ? (data['some_thing'] as bool) : null;
   mocked.withMetadata = (data['mama'] != null &&
           data['mama']['Mia'] != null &&
           data['mama']['Mia']['mama_mia'] != null)
@@ -36,12 +38,15 @@ Mocked _fromJson(Map<String, dynamic> data) {
           data['mama']['mia']['mil'] != null)
       ? (data['mama']['mia']['mil'] as String)
       : null;
-  mocked.mocked2 = data['mocked2']
-      .map<Mockedo>((dynamic data) => Mockedo.fromJson(data))
-      .toList();
-  mocked.lala = (data['mama'] != null &&
-          data['mama']['mia'] != null &&
-          data['lala'] != null)
+  mocked.mocked2 = (data['mocked2'] != null)
+      ? (data['mocked2']
+          .map<Mockedo>((dynamic data) => Mockedo.fromJson(data))
+          .toList())
+      : null;
+  mocked.somet = (data['somet'] != null)
+      ? (DateTime.parse(data['somet']).toLocal())
+      : null;
+  mocked.lala = (data['lala'] != null)
       ? (Mocked.deserializeFunction(data['lala']))
       : null;
   return mocked;

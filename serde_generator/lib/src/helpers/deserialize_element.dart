@@ -163,6 +163,9 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
     }
     Element element = type.element;
     if (element is ClassElement) {
+      if (element.displayName == 'DateTime') {
+        return 'DateTime.parse(data$path).toLocal()';
+      }
       DartObject obj = getAnnotation(element.metadata, 'Serde');
       if (obj != null) {
         return '${type.toString()}.fromJson(data$path as ${element.getNamedConstructor('fromJson').parameters[0].type})';

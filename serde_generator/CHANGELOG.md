@@ -50,3 +50,8 @@ The minimum necessary to the package work and support the annotations
 ### 1.0.9+3
 
 - The last bug was not corrected in the right way, the verification dont parse to snake case
+
+
+## 1.1.0
+
+ - Serde DateTime

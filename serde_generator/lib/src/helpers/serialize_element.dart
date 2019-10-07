@@ -129,6 +129,9 @@ class SerializeElement with StringModifier implements GeneratorSerde {
         return '.cast<${type.typeArguments[0]}>().toList()';
       }
     }
+    if (type.displayName == 'DateTime') {
+      return '.toUtc().toIso8601String()';
+    }
     return '.toJson()';
   }
 

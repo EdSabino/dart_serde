@@ -15,6 +15,7 @@ String _toJson(Mockedo instance) {
 
 Mockedo _fromJson(Map<String, dynamic> data) {
   final Mockedo mockedo = Mockedo();
-  mockedo.something = data['something'] as String;
+  mockedo.something =
+      (data['something'] != null) ? (data['something'] as String) : null;
   return mockedo;
 }

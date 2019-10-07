@@ -27,6 +27,8 @@ class Mocked {
 
   List<Mockedo> mocked2;
 
+  DateTime somet;
+
   @Prop(serializeFunction: serializeFunction, deserializeFunction: deserializeFunction)
   Duration lala;
 
