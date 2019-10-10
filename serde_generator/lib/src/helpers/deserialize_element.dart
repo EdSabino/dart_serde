@@ -126,6 +126,7 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
 
   String resolveType(String path, FieldElement field) {
     DartObject fieldAnnotation = getAnnotation(field.metadata, 'Prop');
+    print(fieldAnnotation.getField('deserializeFunction'));
     if (fieldAnnotation != null && !fieldAnnotation.getField('deserializeFunction').isNull) {
       return withFunction(fieldAnnotation.getField('deserializeFunction').toFunctionValue(), path);
     }
@@ -158,7 +159,7 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
     }
     if (type.isDartCoreMap) {
       if (type is ParameterizedType) {
-        return 'data$path as ${type.toString()}<${type.typeArguments[0]}, ${type.typeArguments[1]}>';
+        return 'data$path as ${type.toString()}';
       }
     }
     Element element = type.element;

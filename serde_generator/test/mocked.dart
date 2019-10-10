@@ -19,6 +19,8 @@ class Mocked {
   @Prop(name: 'mamaMia', isNested: true, path: 'mama.Mia')
   String withMetadata;
 
+  Map<String, dynamic> path;
+
   @Prop(name: 'mil', isNested: true, path: 'mama.mia', isNullable: true)
   String meta;
 
@@ -29,16 +31,14 @@ class Mocked {
 
   DateTime somet;
 
-  @Prop(serializeFunction: serializeFunction, deserializeFunction: deserializeFunction)
+  @Prop(serializeFunction: serializeFunction1, deserializeFunction: deserializeFunction1)
   Duration lala;
 
   String get value => meta;
 
-  static String serializeFunction(dynamic data) {
-    return data.inHours.toString();
-  }
+  static String serializeFunction1(dynamic data) => data.inHours.toString();
 
-  static dynamic deserializeFunction(String data) {
+  static dynamic deserializeFunction1(String data) {
     return Duration(seconds: data as int);
   }
 }

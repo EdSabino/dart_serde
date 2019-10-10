@@ -19,7 +19,7 @@ String _toJson(Mocked instance) {
     },
     'mocked2': instance.mocked2.cast<Mockedo>().toList(),
     'somet': instance.somet.toUtc().toIso8601String(),
-    'lala': Mocked.serializeFunction(instance.lala),
+    'lala': Mocked.serializeFunction1(instance.lala),
   };
   return json.encode(mapper);
 }
@@ -47,7 +47,7 @@ Mocked _fromJson(Map<String, dynamic> data) {
       ? (DateTime.parse(data['somet']).toLocal())
       : null;
   mocked.lala = (data['lala'] != null)
-      ? (Mocked.deserializeFunction(data['lala']))
+      ? (Mocked.deserializeFunction1(data['lala']))
       : null;
   return mocked;
 }

@@ -60,3 +60,6 @@ The minimum necessary to the package work and support the annotations
 
 - Serde DateTime
 
+## 1.1.0+2
+
+- Correcting the deserialization of Map type
