@@ -11,7 +11,9 @@ part 'mocked.g.dart';
 class Mocked {
   Mocked();
 
-  factory Mocked.fromJson(Map<String, dynamic> data) => _fromJson(data);
+  factory Mocked.fromJson(Map<String, dynamic> data) {
+    Mocked mocked = _fromJson(data);
+  }
   String toJson() => _toJson(this);
 
   bool someThing = true;
@@ -31,15 +33,13 @@ class Mocked {
 
   DateTime somet;
 
-  @Prop(serializeFunction: serializeFunction1, deserializeFunction: deserializeFunction1)
+  @Prop(deserializeFunction: deserializeFunction1)
   Duration lala;
 
   String get value => meta;
 
   static String serializeFunction1(dynamic data) => data.inHours.toString();
 
-  static dynamic deserializeFunction1(String data) {
-    return Duration(seconds: data as int);
-  }
+  static dynamic deserializeFunction1(String data) => Duration(seconds: data as int);
 }
 

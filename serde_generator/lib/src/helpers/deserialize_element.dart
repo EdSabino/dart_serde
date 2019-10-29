@@ -102,12 +102,14 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
   }
 
   String createBaseLine(String variable, String name, String expression, [DartObject obj, String path]) {
-    if (obj !=  null) {
+    if (obj != null) {
       if (obj.getField('isNullable').toBoolValue()) {
         if (obj.getField('isNested').toBoolValue()) {
           return '    $variable.$name = (${createNullableOnPath()} data$path != null) ? ($expression) : null;\n';
         }
         return '    $variable.$name = (data$path != null) ? ($expression) : null;\n';
+      } else {
+        return '    $variable.$name = $expression;\n';
       }
     }
     return '    $variable.$name = (data[\'${getFieldNameCased(name, caseType)}\'] != null) ? ($expression) : null;\n';
@@ -126,7 +128,6 @@ class DeserializeElement with StringModifier implements GeneratorSerde {
 
   String resolveType(String path, FieldElement field) {
     DartObject fieldAnnotation = getAnnotation(field.metadata, 'Prop');
-    print(fieldAnnotation.getField('deserializeFunction'));
     if (fieldAnnotation != null && !fieldAnnotation.getField('deserializeFunction').isNull) {
       return withFunction(fieldAnnotation.getField('deserializeFunction').toFunctionValue(), path);
     }
