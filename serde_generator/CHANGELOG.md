@@ -63,3 +63,11 @@ The minimum necessary to the package work and support the annotations
 ## 1.1.0+2
 
 - Correcting the deserialization of Map type
+
+## 1.1.1
+
+- Correcting bugs made by hotfix +2
+
+## 1.1.2
+
+- Making CHANGELOG
